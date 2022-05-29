@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-panel</title>
+    <style>
+        #container{
+            width: 60%;
+            /* border: 1px solid red; */
+            margin: auto;
+        }
+        #container>h1{
+            text-align: center;
+        }
+        #container>div>form{
+            display: flex;
+            flex-direction: column;
+            width: 60%;
+            margin: auto;
+            /* border: 1px solid green; */
+            padding: 2%;
+            
+        }
+        #container>div>form>input,select{
+            padding: 1%;
+            margin-bottom: 3%;
+        }
+        #container>div>form>input:nth-child(12){
+            width: 20px;
+            height: 20px;
+        }
+        #container>div>form>input:nth-child(13){
+            width: 20%;
+            margin: auto;
+            background-color: rgb(102, 102, 223);
+            padding: 2%;
+            color: white;
+            font-weight: 600;
+            border: none;
+            font-size: 14px;
+            border-radius: 7px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Enter Product Details</h1>
+        <div>
+            <form id="formm">
+                <label for="name">Product Name:</label>
+                <input type="text" id="name" required/>
+
+                <label for="category">Category:</label>
+                <input type="text" id="category" required/>
+
+                <label for="image">Image:</label>
+                <input type="url" id="image" required/>
+
+                <label for="price">Price:</label>
+                <input type="text" id="price" required/>
+
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender">
+                    <option value="" selected disabled></option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                    <option value="Others">Unisex</option>
+                </select>
+
+                <label for="price">Sold:</label>
+                <input type="checkbox" id="sold" />
+
+                <input type="submit" id="submit">
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    let products = localStorage.getItem("products");
+    if (products == null) {
+    //   console.log("hello world");
+      localStorage.setItem("products", JSON.stringify([]));
+    }
+
+
+    function product(name,category,image,price,gender,sold){
+        let prod = {};
+        prod.name = name;
+        prod.category = category;
+        prod.image = image;
+        prod.price = price;
+        prod.gender = gender;
+        prod.sold = sold;
+
+        return prod;
+    }
+    document.querySelector("#formm").addEventListener("submit",function(){
+        event.preventDefault();
+        let name = document.getElementById("name").value;
+        let category = document.getElementById("category").value;
+        let image = document.getElementById("image").value;
+        let price = document.getElementById("price").value;
+        let gender = document.getElementById("gender").value;
+        let sold = document.getElementById("sold").checked;
+
+        let prod = product(name,category, image, price, gender, sold);
+
+        products = JSON.parse(localStorage.getItem("products"));
+        console.log(products);
+        products.push(prod);
+        localStorage.setItem("products",JSON.stringify(products));
+    });
+</script>
+</html>

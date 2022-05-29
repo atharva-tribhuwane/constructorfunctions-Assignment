@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        #container {
+            width: 60%;
+            margin: auto;
+            border: 1px solid red;
+        }
+
+        #container>h1 {
+            text-align: center;
+        }
+        #sec{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            margin-top: 10%;
+            margin-left: 5%;
+            margin-right: 5%;
+            grid-gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Products</h1>
+        <div id="sec">
+
+        </div>
+    </div>
+</body>
+<script>
+    let products = JSON.parse(localStorage.getItem("products"));
+    if (products == null) {
+        alert("Local Storage is Empty");
+    }
+    else{
+        products.forEach(function(product){
+            let main = document.createElement("div");
+            let imgdiv = document.createElement("div");
+            let image = document.createElement("img");
+            image.src = product.image;
+            let name = document.createElement("div");
+            name.innerHTML = `<b>${product.name}</b>`;
+            let price = document.createElement("div");
+            price.innerHTML = `<b>${product.price}</b>`;
+        })
+    }
+     
+
+</script>
+
+</html>
